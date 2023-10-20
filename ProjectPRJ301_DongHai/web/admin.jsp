@@ -1,0 +1,458 @@
+<%-- 
+    Document   : admin
+    Created on : Oct 6, 2023, 3:19:38 PM
+    Author     : nguye
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+              integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+                integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+                integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+                integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="./css/all.css">
+    </head>
+
+    <body>
+        <%@include file="header.jsp" %>
+        <div id="admin-wrapper">
+            <div class="admin-sidebar">
+                <ul>
+                    <li class="main-side">
+                        <h3>Main</h3>
+                        <a href="#">
+                            <i class="fas fa-home"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="movie-side">
+                        <h3>Movie</h3>
+                        <button>
+                            <i class="fas fa-video"></i>
+                            <span>Movie Manager</span>
+                            <div class="direction-wrapper">
+                                <i class="fas fa-angle-right"></i>
+                                <i class="fas fa-angle-down"></i>
+                            </div>
+                        </button>
+                        <ul class="dropdown-manager">
+                            <li><a href="admin.jsp">
+                                    <i class="fas fa-caret-right"></i>
+                                    <span>Add movie</span>
+                                </a></li>
+                            <li><a href="movie.jsp">
+                                    <i class="fas fa-caret-right"></i>
+                                    <span>List movie</span>
+                                </a></li>
+                        </ul>
+                    </li>
+                    <li class="account-side">
+                        <h3>Account</h3>
+                        <button>
+                            <i class="fas fa-user"></i>
+                            <span>Account Manager</span>
+                            <div class="direction-wrapper">
+                                <i class="fas fa-angle-right"></i>
+                                <i class="fas fa-angle-down"></i>
+                            </div>
+                        </button>
+                        <ul class="dropdown-manager">
+                            <li><a href="admin-handleAcc.jsp">
+                                    <i class="fas fa-caret-right"></i>
+                                    <span>Block account</span>
+                                </a></li>
+                            <li><a href="admin-handleAcc.jsp">
+                                    <i class="fas fa-caret-right"></i>
+                                    <span>UnBlock account</span>
+                                </a></li>
+                        </ul>
+                    </li>
+                    <li class="other-side">
+                        <h3>Other</h3>
+                        <a href="#">
+                            <i class="fab fa-facebook-messenger"></i>
+                            <span>Message</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="admin-main">
+                <div class="main-cotainer">
+                    <div class="main-header">
+                        <h1>Add movie</h1>
+                        <ul>
+                            <li class="breadcrumb-item"><a href="#">Admin</a></li>
+                            <li class="breadcrumb-item active"><a href="#">Add movies</a></li>
+                        </ul>
+                    </div>
+                    <div class="main-form">
+                        <form>
+                            <div class="form-group row">
+                                <label for="inputName3" class="col-sm-2 col-form-label custom-label-ip">Movie Name</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control custom-label-ip" id="inputName3"
+                                           placeholder="Name..." name="name">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputRealseYear3" class="col-sm-2 col-form-label custom-label-ip">Realse
+                                    Year</label>
+                                <div class="col-sm-10">
+                                    <input type="date" class="form-control custom-label-ip" id="inputRealseYear3"
+                                           placeholder="Realse Year..." name="RealseYear">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputLength3" class="col-sm-2 col-form-label custom-label-ip">Length</label>
+                                <div class="col-sm-10">
+                                    <input type="number" class="form-control custom-label-ip" id="inputLength3"
+                                           placeholder="Length..." name="Length">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputCountry3" class="col-sm-2 col-form-label custom-label-ip">Country</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control custom-label-ip" id="inputCountry3"
+                                           placeholder="Country..." name="Country">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputRating3" class="col-sm-2 col-form-label custom-label-ip">Rating</label>
+                                <div class="col-sm-10">
+                                    <input type="number" class="form-control custom-label-ip" id="inputRating3"
+                                           placeholder="Rating..." name="Rating">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputPrice3" class="col-sm-2 col-form-label custom-label-ip">Price</label>
+                                <div class="col-sm-10">
+                                    <input type="number" class="form-control custom-label-ip" id="inputPrice3"
+                                           placeholder="Price..." name="Price">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputSrc3" class="col-sm-2 col-form-label custom-label-ip">Src</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control custom-label-ip" id="inputSrc3"
+                                           placeholder="Src..." name="Src">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputDescription3"
+                                       class="col-sm-2 col-form-label custom-label-ip">Description</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control custom-label-ip" id="inputDescription3"
+                                           placeholder="Description..." name="Description">
+                                </div>
+                            </div>
+                            <div id="director-data" class="form-group row">
+                                <label for="" class="col-sm-2 col-form-label custom-label-ip">Director</label>
+                                <div class="col-sm-10">
+                                    <div class="form-check form-check-inline">
+                                        <input data-type="add-new" class="form-check-input custom-label-ip" type="radio" name="director-action"
+                                               id="inlineRadio1" value="add-new">
+                                        <label class="form-check-label custom-label-ip" for="inlineRadio1">Add new</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input data-type="choose-exist" class="form-check-input custom-label-ip" type="radio" name="director-action"
+                                               id="inlineRadio2" value="choose-exist">
+                                        <label class="form-check-label custom-label-ip" for="inlineRadio2">Add exist
+                                            person</label>
+                                    </div>
+
+                                    <div class="result-wrapper">
+
+                                    </div>
+
+                                    <div class="Choose-Ewrapper">
+
+                                        <input class="form-control custom-label-ip custom-search" id="search-info"
+                                               type="text" placeholder="Search..">
+
+                                        <div class="custom-tableWrapper">
+                                            <table id="Choose-existed"
+                                                   class="table table-striped table-hover custom-label-ip">
+                                                <thead class="">
+                                                    <tr>
+                                                        <th scope="col">#</th>
+                                                        <th scope="col">FullName</th>
+                                                        <th scope="col">Birth</th>
+                                                        <th scope="col">Country</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="customm-tableBody">
+                                                    <tr onclick="handleFind(this, 'director')">
+                                                        <th scope="row">1</th>
+                                                        <td>Mark</td>
+                                                        <td>Otto</td>
+                                                        <td>@mdo</td>
+                                                    </tr>
+                                                    <tr onclick="handleFind(this, 'director')">
+                                                        <th scope="row">2</th>
+                                                        <td>Jacob</td>
+                                                        <td>Thornton</td>
+                                                        <td>@fat</td>
+                                                    </tr>
+                                                    <tr onclick="handleFind(this, 'director')">
+                                                        <th scope="row">3</th>
+                                                        <td>Larry</td>
+                                                        <td>the Bird</td>
+                                                        <td>@twitter</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                    <div class="Add-Nwrapper row">
+                                        <div id="add-New" class="col-md-9 form-row">
+                                            <div class="col-md-4 mb-3">
+                                                <label for="validationCustom01" class="custom-label-ip">Full Name</label>
+                                                <input type="text" class="form-control custom-label-ip"
+                                                       id="validationCustom01" name="NFullName" placeholder="Full Name"
+                                                       value="" required>
+                                                <div class="valid-feedback">
+                                                    Looks good!
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 mb-3">
+                                                <label for="validationCustom02" class="custom-label-ip">Birth</label>
+                                                <input type="date" class="form-control custom-label-ip"
+                                                       id="validationCustom02" name="NBirth" placeholder="Birth" value=""
+                                                       required>
+                                                <div class="valid-feedback">
+                                                    Looks good!
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 mb-3">
+                                                <label for="validationCustom03" class="custom-label-ip">Country</label>
+                                                <input type="text" class="form-control custom-label-ip"
+                                                       id="validationCustom03" name="NCountry" placeholder="Country" value=""
+                                                       required>
+                                                <div class="valid-feedback">
+                                                    Looks good!
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button type="button" class="col-md-3 btn btn-outline-primary custom-btn-addN" onclick="handleAdd(this, 'director')">Add
+                                            new</button>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div id="actor-data" class="form-group row">
+                                <label for="" class="col-sm-2 col-form-label custom-label-ip">Actor</label>
+                                <div class="col-sm-10">
+                                    <div class="form-check form-check-inline">
+                                        <input data-type="add-new" class="form-check-input custom-label-ip" type="radio" name="actor-action"
+                                               id="inlineRadio3" value="add-new">
+                                        <label class="form-check-label custom-label-ip" for="inlineRadio3">Add new</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input data-type="choose-exist" class="form-check-input custom-label-ip" type="radio" name="actor-action"
+                                               id="inlineRadio4" value="choose-exist">
+                                        <label class="form-check-label custom-label-ip" for="inlineRadio4">Add exist
+                                            person</label>
+                                    </div>
+
+                                    <div class="result-wrapper">
+
+                                    </div>
+
+                                    <div class="Choose-Ewrapper">
+                                        <input class="form-control custom-label-ip custom-search" id="search-info"
+                                               type="text" placeholder="Search..">
+
+                                        <div class="custom-tableWrapper">
+                                            <table id="Choose-existed"
+                                                   class="table table-striped table-hover custom-label-ip">
+                                                <thead class="">
+                                                    <tr>
+                                                        <th scope="col">#</th>
+                                                        <th scope="col">FullName</th>
+                                                        <th scope="col">Birth</th>
+                                                        <th scope="col">Country</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="customm-tableBody">
+                                                    <tr onclick="handleFind(this, 'actor')">
+                                                        <th scope="row">1</th>
+                                                        <td>Mark</td>
+                                                        <td>Otto</td>
+                                                        <td>@mdo</td>
+                                                    </tr>
+                                                    <tr onclick="handleFind(this, 'actor')">
+                                                        <th scope="row">2</th>
+                                                        <td>Jacob</td>
+                                                        <td>Thornton</td>
+                                                        <td>@fat</td>
+                                                    </tr>
+                                                    <tr onclick="handleFind(this, 'actor')">
+                                                        <th scope="row">3</th>
+                                                        <td>Larry</td>
+                                                        <td>the Bird</td>
+                                                        <td>@twitter</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                    <div class="Add-Nwrapper row">
+                                        <div id="add-New" class="col-md-9 form-row">
+                                            <div class="col-md-4 mb-3">
+                                                <label for="validationCustom01" class="custom-label-ip">Full Name</label>
+                                                <input type="text" class="form-control custom-label-ip"
+                                                       id="validationCustom01" name="NFullName" placeholder="Full Name"
+                                                       value="" required>
+                                                <div class="valid-feedback">
+                                                    Looks good!
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 mb-3">
+                                                <label for="validationCustom02" class="custom-label-ip">Birth</label>
+                                                <input type="date" class="form-control custom-label-ip"
+                                                       id="validationCustom02" name="NBirth" placeholder="Birth" value=""
+                                                       required>
+                                                <div class="valid-feedback">
+                                                    Looks good!
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 mb-3">
+                                                <label for="validationCustom03" class="custom-label-ip">Country</label>
+                                                <input type="text" class="form-control custom-label-ip"
+                                                       id="validationCustom03" name="NCountry" placeholder="Country" value=""
+                                                       required>
+                                                <div class="valid-feedback">
+                                                    Looks good!
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button type="button" class="col-md-3 btn btn-outline-primary custom-btn-addN" onclick="handleAdd(this, 'actor')">Add
+                                            new</button>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div id="genre-data" class="form-group row">
+                                <label for="" class="col-sm-2 col-form-label custom-label-ip">Genre</label>
+                                <div class="col-sm-10">
+                                    <div class="form-check form-check-inline">
+                                        <input data-type="add-new" class="form-check-input custom-label-ip" type="radio" name="genre-action"
+                                               id="inlineRadio5" value="add-new">
+                                        <label class="form-check-label custom-label-ip" for="inlineRadio5">Add new</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input data-type="choose-exist" class="form-check-input custom-label-ip" type="radio" name="genre-action"
+                                               id="inlineRadio6" value="choose-exist">
+                                        <label class="form-check-label custom-label-ip" for="inlineRadio6">Add exist
+                                            genre</label>
+                                    </div>
+
+                                    <div class="result-wrapper">
+
+                                    </div>
+
+                                    <div class="Choose-Ewrapper">
+                                        <input class="form-control custom-label-ip custom-search" id="search-info"
+                                               type="text" placeholder="Search.." onkeyup="">
+
+                                        <div class="custom-tableWrapper">
+                                            <table id="Choose-existed"
+                                                   class="table table-striped table-hover custom-label-ip">
+                                                <thead class="">
+                                                    <tr>
+                                                        <th scope="col">#</th>
+                                                        <th scope="col">Genre Name</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="customm-tableBody">
+                                                    <tr onclick="handleFind(this, 'genre')">
+                                                        <th scope="row">1</th>
+                                                        <td>Mark</td>
+                                                    </tr>
+                                                    <tr onclick="handleFind(this, 'genre')">
+                                                        <th scope="row">2</th>
+                                                        <td>Jacob</td>
+                                                    </tr>
+                                                    <tr onclick="handleFind(this, 'genre')">
+                                                        <th scope="row">3</th>
+                                                        <td>Larry</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                    <div class="Add-Nwrapper row">
+                                        <div id="add-New" class="col-md-3 form-row">
+                                            <div class="col-md-12 mb-3">
+                                                <label for="validationCustom07" class="custom-label-ip">Genre Name</label>
+                                                <input type="text" class="form-control custom-label-ip"
+                                                       id="validationCustom07" name="NGenreName" placeholder="Genre Name"
+                                                       value="">
+                                                <div class="valid-feedback">
+                                                    Looks good!
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button type="button" class="col-md-3 btn btn-outline-primary custom-btn-addN" onclick="handleAdd(this, 'genre')">Add
+                                            new</button>
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+                            <div class="form-group row">
+                                <div class="col-sm-10">
+                                    <button type="button" class="btn btn-primary custom-btn">Add</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="page-footer">
+            <div class="container">
+                <div class="footer-content">
+                    <img src="./images/logo-default.png" alt="logo-img">
+                    <div class="icon-wrapper">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-pinterest-p"></i></a>
+                        <a href="#"><i class="fab fa-vimeo-v"></i></a>
+                        <a href="#"><i class="fab fa-google"></i></a>
+                        <a href="#"><i class="fas fa-rss"></i></a>
+                    </div>
+                </div>
+                <div class="footer-copyright">
+                    <p>© 2022 All Rights Reserved. Terms of Use.</p>
+                </div>
+            </div>
+        </div>
+        <script src="./js/script.js"></script>
+        <script>
+                                            handleAll_Except_Login_SignOut();
+                                            handleAdmin();
+                                            handleSubmitAddMovie();
+        </script>
+    </body>
+
+</html>

@@ -6,6 +6,7 @@ package controller;
 
 import dal.CategoryDAO;
 import dal.MovieDAO;
+import dal.WishListDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -15,6 +16,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
 import model.Category;
 import model.Movie;
+import model.User;
 
 /**
  *
@@ -62,6 +64,10 @@ public class MovieServlet extends HttpServlet {
             throws ServletException, IOException {
         MovieDAO dao = new MovieDAO();
         List<Movie> movie = dao.getAll();//gettopaging
+//        String movieID = request.getParameter("movieID");
+//        WishListDAO paid = new WishListDAO();
+//        int userID = ((User) request.getSession().getAttribute("account")).getId();
+//        request.setAttribute("paied", paid.Ordesr(userID, movieID));
         int page, numperpage = 8;
         int size = movie.size();
         int num = (size % numperpage == 0 ? (size / numperpage) : ((size / numperpage)) + 1);

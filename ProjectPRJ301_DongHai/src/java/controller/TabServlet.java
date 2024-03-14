@@ -12,9 +12,13 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.util.List;
 import model.Category;
 import model.Movie;
+import dal.WishListDAO;
+import model.User;
+import model.WishList;
 
 /**
  *
@@ -60,6 +64,7 @@ public class TabServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         String id_raw = request.getParameter("id");
         int id;
         if (id_raw == null) {

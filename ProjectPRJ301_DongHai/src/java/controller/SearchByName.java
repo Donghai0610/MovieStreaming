@@ -4,6 +4,7 @@
  */
 package controller;
 
+import dal.CategoryDAO;
 import dal.MovieDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -12,6 +13,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
+import model.Category;
 import model.Movie;
 
 /**
@@ -59,9 +61,16 @@ public class SearchByName extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         MovieDAO dao = new MovieDAO();
+        CategoryDAO dal = new CategoryDAO();
+        List<Category> c = dal.getAll();
+        request.setAttribute("data", c);
         String key = request.getParameter("key");
         if (key == null) {
             key = "";
+        }
+        String checkkey = "";
+        if (key != null) {
+            checkkey += "key=" + key;
         }
         List<Movie> movie = dao.searchByName(key);//searchbyName
 
@@ -82,9 +91,9 @@ public class SearchByName extends HttpServlet {
         request.setAttribute("movie", list);
         request.setAttribute("page", page);
         request.setAttribute("num", num);
-        request.setAttribute("key", key);
+        request.setAttribute("key", checkkey);
 
-        request.getRequestDispatcher("movie_1.jsp").forward(request, response);
+        request.getRequestDispatcher("movie.jsp").forward(request, response);
     }
 
     /**

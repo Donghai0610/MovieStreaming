@@ -1,5 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <filter>
+        <filter-name>WelComeFilter</filter-name>
+        <filter-class>filter.WelComeFilter</filter-class>
+    </filter>
+    <filter>
+        <filter-name>AdminControllerFilter</filter-name>
+        <filter-class>filter.AdminControllerFilter</filter-class>
+    </filter>
+    <filter>
+        <filter-name>WishList</filter-name>
+        <filter-class>filter.WishList</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>AdminControllerFilter</filter-name>
+        <url-pattern>/admin-chart.jsp</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>WelComeFilter</filter-name>
+        <url-pattern>/index.html</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>WishList</filter-name>
+        <servlet-name>Movie_Detail</servlet-name>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>AdminControllerFilter</filter-name>
+        <url-pattern>/admin-chart.jsp</url-pattern>
+    </filter-mapping>
     <servlet>
         <servlet-name>LoginServlet</servlet-name>
         <servlet-class>controller.LoginServlet</servlet-class>
@@ -40,6 +68,66 @@
         <servlet-name>SearchByName</servlet-name>
         <servlet-class>controller.SearchByName</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AddCategoryServlet</servlet-name>
+        <servlet-class>controller.admin.AddCategoryServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteCategoryServlet</servlet-name>
+        <servlet-class>controller.admin.DeleteCategoryServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateCategoryServlet</servlet-name>
+        <servlet-class>controller.admin.UpdateCategoryServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminServlet</servlet-name>
+        <servlet-class>controller.admin.AdminServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddMovieServlet</servlet-name>
+        <servlet-class>controller.admin.AddMovieServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteMovieServlet</servlet-name>
+        <servlet-class>controller.admin.DeleteMovieServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateMovieServlet</servlet-name>
+        <servlet-class>controller.admin.UpdateMovieServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeteleWishListServlet</servlet-name>
+        <servlet-class>controller.admin.DeteleWishListServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminHandleAccServlet</servlet-name>
+        <servlet-class>controller.admin.AdminHandleAccServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateAccount</servlet-name>
+        <servlet-class>controller.admin.UpdateAccount</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteAccountServlet</servlet-name>
+        <servlet-class>controller.admin.DeleteAccountServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>StatisticServlet</servlet-name>
+        <servlet-class>controller.admin.StatisticServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SendMail</servlet-name>
+        <servlet-class>controller.admin.SendMail</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PayMentServlet</servlet-name>
+        <servlet-class>controller.admin.PayMentServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>VNPAYServlet</servlet-name>
+        <servlet-class>controller.admin.VNPAYServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -79,6 +167,111 @@
     <servlet-mapping>
         <servlet-name>SearchByName</servlet-name>
         <url-pattern>/searchbyname</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddCategoryServlet</servlet-name>
+        <url-pattern>/addcategory</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteCategoryServlet</servlet-name>
+        <url-pattern>/deletecategory</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateCategoryServlet</servlet-name>
+        <url-pattern>/updatecategory</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminServlet</servlet-name>
+        <url-pattern>/admin</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddMovieServlet</servlet-name>
+        <url-pattern>/addmovie</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteMovieServlet</servlet-name>
+        <url-pattern>/deletemovie</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateMovieServlet</servlet-name>
+        <url-pattern>/updatemovie</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeteleWishListServlet</servlet-name>
+        <url-pattern>/deletewishlist</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminHandleAccServlet</servlet-name>
+        <url-pattern>/admin_account</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateAccount</servlet-name>
+        <url-pattern>/updateaccount</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteAccountServlet</servlet-name>
+        <url-pattern>/deleteaccount</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StatisticServlet</servlet-name>
+        <url-pattern>/stastistic</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SendMail</servlet-name>
+        <url-pattern>/sendmail</url-pattern>
+    </servlet-mapping>
+
+       
+    <!--payment-->
+    <context-param>
+        <param-name>authoken</param-name>
+        <param-value>pxYm2vPFZiCLayr2n2P6ePAPzF5iH4o2hju5hR1anXB9oV62qcBdVnI5Eye</param-value>
+    </context-param>
+    <context-param>
+        <param-name>posturl</param-name>
+        <param-value>https://www.sandbox.paypal.com/us/cgi-bin/webscr</param-value>
+    </context-param>
+    <context-param>
+        <param-name>business</param-name>
+        <param-value>nguyentuanhongdonghai@gmail.com</param-value>
+    </context-param>
+    <context-param>
+        <param-name>returnurl</param-name>
+        <param-value>http://localhost:8080/project/payment.jsp</param-value>
+    </context-param>
+    <servlet-mapping>
+        <servlet-name>PayMentServlet</servlet-name>
+        <url-pattern>/payment</url-pattern>
+    </servlet-mapping>
+    
+    
+    <servlet>
+        <servlet-name>ajaxServlet</servlet-name>
+        <servlet-class>com.vnpay.common.ajaxServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>vnpayQuery</servlet-name>
+        <servlet-class>com.vnpay.common.vnpayQuery</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>vnpayRefund</servlet-name>
+        <servlet-class>com.vnpay.common.vnpayRefund</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ajaxServlet</servlet-name>
+        <url-pattern>/vnpayajax/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>vnpayQuery</servlet-name>
+        <url-pattern>/vnpayquery/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>vnpayRefund</servlet-name>
+        <url-pattern>/vnpayrefund/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>VNPAYServlet</servlet-name>
+        <url-pattern>/vnpay</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

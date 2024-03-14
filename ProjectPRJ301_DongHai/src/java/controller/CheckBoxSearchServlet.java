@@ -63,19 +63,30 @@ public class CheckBoxSearchServlet extends HttpServlet {
         MovieDAO dao = new MovieDAO();
         CategoryDAO dal = new CategoryDAO();
         List<Category> c = dal.getAll();
-
+        String nameAsc = request.getParameter("nameDown");
+        String nameDesc = request.getParameter("nameUp");
+        Integer priceAsc = request.getParameter("priceUp") != null ? 1 : null;
+        Integer priceDesc = request.getParameter("priceDown") != null ? 1 : null;
+        String key = request.getParameter("key");
+        if (key == null) {
+            key = "";
+        }
         String[] id_raw = request.getParameterValues("typeOfFilm");
         int[] id = null;
         if (id_raw != null) {
             id = new int[id_raw.length];
+            String checkbox = "";
             for (int i = 0; i < id_raw.length; i++) {
                 id[i] = Integer.parseInt(id_raw[i]);
+                checkbox += "typeOfFilm=" + id[i];
+                if (i < id_raw.length - 1) {
+                    checkbox += "&";
+                }
             }
+            request.setAttribute("checkbox", checkbox);
         }
-        List<Movie> movie = dao.checkBox(id);
-        request.setAttribute("checkbox", movie);
-        
-        
+        List<Movie> movie = dao.checkBox(id, nameAsc, nameDesc, priceDesc, priceAsc, key);
+
         boolean[] cid = new boolean[c.size()];
         for (int i = 0; i < cid.length; i++) {
             if (isCheck(c.get(i).getId(), id)) {

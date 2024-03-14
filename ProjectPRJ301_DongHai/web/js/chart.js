@@ -1,8 +1,8 @@
 //ammount create acount -linechart
 function chartCreateAcc() {
-    let targetE = document.getElementById('create-account')
-    let fetchData = targetE.dataset.createacc
-    let dataResult = fetchData.split(',')
+    let targetE = document.getElementById('create-account');
+    let fetchData = targetE.dataset.createacc;
+    let dataResult = fetchData.split(',');
 
     const labelsCreateAccount = [
         'January',
@@ -21,7 +21,7 @@ function chartCreateAcc() {
     const dataCreateAccount = {
         labels: labelsCreateAccount,
         datasets: [{
-                label: 'Account creating per month',
+                label: 'The Number of Movie follow Genre',
                 backgroundColor: 'rgb(255, 99, 132)',
                 borderColor: 'rgb(255, 99, 132)',
                 data: dataResult,
@@ -49,7 +49,7 @@ function chartCreateAcc() {
 }
 chartCreateAcc()
 
-//chart male/female - doughnutchart
+//chart male / female - doughnutchart
 function chartMaleFemale() {
     let targetE = document.getElementById('M__F-Account')
     let fetchData = targetE.dataset.mf
@@ -83,21 +83,21 @@ chartMaleFemale()
 
 //genre movie - Pie Charts
 function chartGenreMovie() {
-    let targetE = document.getElementById('genre-movie')
-    let fetchData = targetE.dataset.gm
-    let dataResultAll = fetchData.split(',')
-    let dataDataset = [], dataLabel = [], dataColor = []
+    let targetE = document.getElementById('genre-movie');
+    let fetchData = targetE.dataset.gm;
+    let dataResultAll = fetchData.split(',');
+    let dataDataset = [], dataLabel = [], dataColor = [];
 
     for (let dataTmp of dataResultAll) {
-        dataLabel.push(dataTmp.split('-')[0])
-        dataDataset.push(dataTmp.split('-')[1])
-        dataColor.push(`#${Math.floor(Math.random() * 16777215).toString(16)}`)
+        dataLabel.push(dataTmp.split('=')[0]);
+        dataDataset.push(dataTmp.split('=')[1]);
+        dataColor.push(`#${Math.floor(Math.random() * 16777215).toString(16)}`);
     }
 
     const dataGM = {
         labels: dataLabel,
         datasets: [{
-                label: 'My First Dataset',
+                label: 'Number of Film',
                 data: dataDataset,
                 backgroundColor: dataColor,
                 hoverOffset: 4
@@ -105,33 +105,33 @@ function chartGenreMovie() {
     };
     const configGM = {
         type: 'pie',
-        data: dataGM,
+        data: dataGM
     };
     const ChartGM = new Chart(
             targetE,
             configGM
             );
 }
-chartGenreMovie()
+chartGenreMovie();
 
 //movie has most view per week - barchart
 function chartMovieViewer() {
-    let targetE = document.getElementById('movie-viewer')
-    let fetchData = targetE.dataset.mv
-    let dataResultAll = fetchData.split(',')
+    let targetE = document.getElementById('movie-viewer');
+    let fetchData = targetE.dataset.mv;
+    let dataResultAll = fetchData.split(',');
     let dataDataset = [], dataLabel = []
-
+            ;
     for (let dataTmp of dataResultAll) {
-        dataLabel.push(dataTmp.split('-')[0])
-        dataDataset.push(dataTmp.split('-')[1])
+        dataLabel.push(dataTmp.split('=')[0]);
+        dataDataset.push(dataTmp.split('=')[1]);
     }
 
-    const labelsMV = ['1', '2', '3', '4', '5', '6', '7'];
+    const labelsMV = dataLabel;
     const dataMV = {
         labels: labelsMV,
         datasets: [{
                 axis: 'y',
-                label: 'Most viewer per month',
+                label: 'Most viewer of Genre',
                 data: dataDataset,
                 fill: false,
                 backgroundColor: [
@@ -172,7 +172,7 @@ function chartMovieViewer() {
                 tooltip: {
                     callbacks: {
                         title: (arg) => {
-                            return dataLabel[arg[0].label - 1]
+                            return dataLabel[arg[0].label - 1];
                         },
                     }
                 }
@@ -184,9 +184,9 @@ function chartMovieViewer() {
             configMV
             );
 }
-chartMovieViewer()
-
-//Statistic money each week - line chart
+chartMovieViewer();
+//
+////Statistic money each week - line chart
 function chartStatisticMoney() {
     let targetE = document.getElementById('statistic-money')
     let fetchData = targetE.dataset.sm

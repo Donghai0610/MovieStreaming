@@ -21,3 +21,22 @@ public class DBContext {
         }
     }
 }
+//public class DBContext {
+//
+////    protected Connection connection;
+////
+////    public DBContext() {
+////        try {
+////            String url = "jdbc:mysql://localhost:3306/luumanhshop";
+////            String username = "root";
+////            String password = "donghai06102003";
+////
+////            connection = DriverManager.getConnection(url, username, password);
+////        } catch (SQLException ex) {
+////            System.out.println(ex);
+////        }
+////    }
+//
+//   
+//    
+//}

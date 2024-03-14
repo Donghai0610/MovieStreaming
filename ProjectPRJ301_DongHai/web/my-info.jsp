@@ -70,7 +70,7 @@
                                                     <input type="text" name="money" value="$500.00" id="money" readonly>
                                                 </div>-->
                         <h2>${requestScope.ms2}</h2>
-                        <button type="submit" onclick="this.form.submit()">SAVE</button>
+                        <button  class="btn btn-block "type="submit" onclick="this.form.submit()">SAVE</button>
                     </form>
                 </div>
             </div>

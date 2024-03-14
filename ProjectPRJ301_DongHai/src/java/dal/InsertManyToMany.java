@@ -4,6 +4,7 @@
  */
 package dal;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -131,14 +132,13 @@ public class InsertManyToMany extends DBContext {
         List<Comment> list = new ArrayList<>();
 
         try {
-            String sql = "select c.id, m.ID as videoId ,c.comment ,c.commentDate, u.id as userId, u.name as movieName\n"
+            String sql = "select c.id, m.ID as videoId ,c.comment ,c.commentDate, u.id as userId, u.name as movieUsers,u.avatar as userAvatar\n"
                     + "                    from Comment as c \n"
-                    + "                    inner join Movie as m on (m.ID = c.videoId)\n"
-                    + "                    inner join [User] as u on u.id = c.userId";
+                    + "                    left join Movie as m on (m.ID = c.videoId)\n"
+                    + "                    left join [User] as u on u.id = c.userId ";
             if (videoId > 0) {
                 sql += " where videoId = " + videoId;
             }
-            System.out.println(sql);
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
@@ -148,39 +148,67 @@ public class InsertManyToMany extends DBContext {
                 c.setCommentDate(rs.getDate("commentDate"));
                 Movie m = new Movie(rs.getInt("videoId"));
                 c.setVideoId(m);
-                User u = new User(rs.getInt("userId"), rs.getString("movieName"));
+                User u = new User(rs.getInt("userId"), rs.getString("movieUsers"));
+                u.setAvatar(rs.getString("userAvatar"));
                 c.setUserId(u);
                 list.add(c);
 
             }
         } catch (SQLException e) {
+            e.printStackTrace();
         }
         return list;
     }
 
-    public void inserComment(Comment c) {
+//    public void inserComment(Comment c) {
+//        String sql = "INSERT INTO [dbo].[Comment]\n"
+//                + "           ([userId]\n"
+//                + "           ,[videoId]\n"
+//                + "           ,[comment]\n"
+//                + "           ,[commentDate])\n"
+//                + "     VALUES\n"
+//                + "           (?,?,?,?);";
+//        try {
+//            PreparedStatement st = connection.prepareStatement(sql);
+//            st.setInt(1, c.getUserId().getId());
+//            st.setInt(2, c.getVideoId().getId());
+//            st.setString(3, c.getComment());
+//            st.setDate(4, c.getCommentDate());
+//            st.executeUpdate();
+//        } catch (SQLException e) {
+//        }
+//    }
+    public void insertComment(Comment c) {
+        Date d = new Date(new java.util.Date().getTime());
         String sql = "INSERT INTO [dbo].[Comment]\n"
                 + "           ([userId]\n"
                 + "           ,[videoId]\n"
                 + "           ,[comment]\n"
                 + "           ,[commentDate])\n"
                 + "     VALUES\n"
-                + "           (?,?,?,?);";
+                + "           (?,?,?,?)";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, c.getUserId().getId());
             st.setInt(2, c.getVideoId().getId());
             st.setString(3, c.getComment());
-            st.setDate(4, c.getCommentDate());
+            st.setDate(4, d);
             st.executeUpdate();
         } catch (SQLException e) {
+            e.printStackTrace();
         }
+
     }
 
     public static void main(String[] args) {
         InsertManyToMany dal = new InsertManyToMany();
-        List<Comment> m = dal.getCommet(15);
-        System.out.println(m.get(0).getUserId());
+//        List<Comment> m = dal.getCommet(15);
+//        System.out.println(m.get(0).getUserId().getAvatar());
+        Comment c = new Comment();
+        c.setUserId(new User(2004, null));
+        c.setVideoId(new Movie(4));
+        c.setComment("hay qua");
+        dal.insertComment(c);
 //        Comment c = new Comment(0, userId, videoId, comment, commentDate);
 //        dal.inserComment(c);
     }

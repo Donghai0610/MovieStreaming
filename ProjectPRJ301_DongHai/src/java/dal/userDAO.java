@@ -56,15 +56,17 @@ public class userDAO extends DBContext {
     public void signUp(User a) {
         String sql = "INSERT INTO [dbo].[User]\n"
                 + "           ([name]\n"
+                + "           ,[email]\n"
                 + "           ,[password])\n"
-                + "     VALUES\n"
-                + "	 (?,?)";
+                + "     VALUES (?,?,?)";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, a.getUser());
-            st.setString(2, a.getPassword());
+            st.setString(2, a.getEmail());
+            st.setString(3, a.getPassword());
             st.executeUpdate();
         } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
@@ -82,7 +84,7 @@ public class userDAO extends DBContext {
             if (rs.next()) {
                 return true;
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
         }
         return false;
     }
@@ -105,7 +107,7 @@ public class userDAO extends DBContext {
             while (rs.next()) {
                 User c = new User();
                 c.setId(rs.getInt("id"));
-                c.setUser(rs.getString("user"));
+                c.setUser(rs.getString("name"));
                 c.setFullname(rs.getString("fullname"));
                 c.setEmail(rs.getString("email"));
                 c.setPhonenum(rs.getString("phonenum"));
@@ -182,9 +184,50 @@ public class userDAO extends DBContext {
                 user.setPassword(rs.getString("password"));
                 return user;
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
         }
         return null;
 
+    }
+
+    public List<User> getListByPage(List<User> list,
+            int start, int end) {
+        ArrayList<User> arr = new ArrayList<>();
+        for (int i = start; i < end; i++) {
+            arr.add(list.get(i));
+        }
+        return arr;
+    }
+
+    public void deleteAccount(String name) {
+        String sql = "	DELETE FROM [dbo].[User]\n"
+                + "		  WHERE [name]= ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, name);
+            st.executeUpdate();
+        } catch (SQLException e) {
+        }
+    }
+
+    public int statisticUser() {
+        String sql = "select count(*) as Total_User from [User] where role =2 ";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                int toatlUser = rs.getInt("Total_User");
+                return toatlUser;
+            }
+        } catch (SQLException e) {
+        }
+        return 0;
+
+    }
+
+    public static void main(String[] args) {
+        userDAO dal = new userDAO();
+        User u = new User("sss", "sdasdasd@gmail.com", "123");
+        dal.signUp(u);
     }
 }

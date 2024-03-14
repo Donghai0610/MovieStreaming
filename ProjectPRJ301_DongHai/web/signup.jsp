@@ -43,7 +43,7 @@
     <body>
         <div id="form-content">
             <div class="form-background">
-                <img src="./images/login-img1.jpg" alt="bg">
+                <img src="./images/spider_man_login.jpg" alt="bg">
             </div>
             <div class="logo-wrapper">
                 <a href="home" class="fixed-logo">
@@ -53,28 +53,27 @@
             <div class="form-wrapper mx-auto">
                 <form action="signup" method="post">
                     <h1>Sign up</h1>
-                    <!-- <div class="form-group">
-                        <div class="form-control-wrapper">
-                            <input type="text" name="fullname" class="form-control" id="fullname">
-                            <label for="username">Full Name</label>
-                        </div>
-                        <span class="form-message"></span>
-                    </div> -->
+                    <!--                     <div class="form-group">
+                                            <div class="form-control-wrapper">
+                                                <input type="text" name="fullname" class="form-control" id="fullname">
+                                                <label for="fullname">Email</label>
+                                            </div>
+                                            <span class="form-message"></span>
+                                        </div> -->
 
                     <div class="form-group">
                         <div class="form-control-wrapper">
                             <input type="text" name="username" class="form-control" id="username">
                             <label for="username">Username</label>
                         </div>
-                        <span class="form-message">${requestScope.error}</span>
-                        <span class="form-message"></span>
+                        <span>${requestScope.error}</span>
                     </div>
+
                     <div class="form-group">
                         <div class="form-control-wrapper">
                             <input type="password" name="password" class="form-control" id="password" />
                             <label for="password">Password</label>
                         </div>
-                        <span class="form-message"></span>
                     </div>
                     <div class="form-group">
                         <div class="form-control-wrapper">
@@ -92,33 +91,16 @@
                             <span class="checkmark"></span>
                             <p class="agree-error"></p>
                         </label>
-                        <a href="#">Help</a>
+
                     </div>
                 </form>
                 <div class="link-to-rest">
                     Already a Member?
-                    <a href="./login.jsp">Go to login</a>
+                    <a href="login">Go to login</a>
                 </div>
             </div>
         </div>
-        <div id="page-footer">
-            <div class="container">
-                <div class="footer-content">
-                    <img src="./images/logo-default.png" alt="logo-img">
-                    <div class="icon-wrapper">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-pinterest-p"></i></a>
-                        <a href="#"><i class="fab fa-vimeo-v"></i></a>
-                        <a href="#"><i class="fab fa-google"></i></a>
-                        <a href="#"><i class="fas fa-rss"></i></a>
-                    </div>
-                </div>
-                <div class="footer-copyright">
-                    <p>© 2022 All Rights Reserved. Terms of Use.</p>
-                </div>
-            </div>
-        </div>
+        <%@include file="footer.jsp" %>
         <script src="./js/script.js"></script>
         <script>
                                        handleSignUp();

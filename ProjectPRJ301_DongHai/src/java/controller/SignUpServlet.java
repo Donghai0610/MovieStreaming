@@ -72,19 +72,19 @@ public class SignUpServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String username = request.getParameter("username");
+//        String mail = request.getParameter("fullname");
+//        System.out.println(mail);
         String password = request.getParameter("password");
-
         //check
         userDAO dal = new userDAO();
         if (dal.existedUs(username)) {
-            String mess = "UserName has exits!!";
-            request.setAttribute("error", mess);
-            request.getRequestDispatcher("signup.jsp").forward(request, response);
+            String mess = "UserName has exits!! or Email has wrong format\"..@gmail.com\"";
+//            request.setAttribute("error", mess);
+            request.getRequestDispatcher("signup").forward(request, response);
         } else {
-
-            User u = new User(username, password);
+            User u = new User(username, password, null);
             dal.signUp(u);
-            response.sendRedirect("login.jsp");
+            response.sendRedirect("login");
         }
     }
 

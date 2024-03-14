@@ -101,7 +101,7 @@ public class LoginServlet extends HttpServlet {
             response.addCookie(p);
             response.addCookie(r);
             if (u.getRole() == 1) {
-                request.getRequestDispatcher("admin.jsp").forward(request, response);
+                response.sendRedirect("admin-chart.jsp");
             } else {
                 response.sendRedirect("home");
             }

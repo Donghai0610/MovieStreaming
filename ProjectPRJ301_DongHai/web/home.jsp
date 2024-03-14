@@ -18,6 +18,9 @@
         <link rel="stylesheet" href="./css/all.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
         <!-- <script src="./js/jquery-3.6.0.min.js"></script> -->
+        <style>
+
+        </style>
     </head>
 
     <body>
@@ -40,7 +43,7 @@
                                 <h6>
                                     <a href="#">${m.name}</a>
                                 </h6>
-                                <p></p>
+                                <p>${m.release},${m.cid.name}</p>
                             </div>
 
                             <div class="slider1 slider-Lclone">
@@ -50,7 +53,7 @@
                                 <h6>
                                     <a href="#">${m.name}</a>
                                 </h6>
-                                <p>2017, USA, Drama, Horror, Thriller</p>
+                                <p>${m.release},${m.cid.name}</p>
                             </div>
                         </c:forEach>
                         <c:forEach items="${requestScope.second}" var="m">
@@ -61,7 +64,7 @@
                                 <h6>
                                     <a href="movie_detail?id=${m.id}">${m.name}</a>
                                 </h6>
-                                <p>2017, USA, Drama, Horror, Thriller</p>
+                                <p>${m.release}-${m.cid.name}</p>
                             </div>
                         </c:forEach>
                         <c:forEach items="${requestScope.randomfirst}" var="m">
@@ -72,16 +75,16 @@
                                 <h6>
                                     <a href="#">${m.name}</a>
                                 </h6>
-                                <p>2017, USA, Drama, Horror, Thriller</p>
+                                <p>${m.release},${m.cid.name}</p>
                             </div>
                             <div class="slider1 slider-SFclone">
                                 <a href="#">
-                                    <img src="" alt="1" width="570" height="364">
+                                    <img src="${m.image}" alt="1" width="570" height="364">
                                 </a>
                                 <h6>
-                                    <a href="#">IT (2017)</a>
+                                    <a href="#">${m.cid.name}</a>
                                 </h6>
-                                <p>2017, USA, Drama, Horror, Thriller</p>
+                                <p>${m.release}-${m.cid.name}</p>
                             </div>
                         </c:forEach>
                     </div>
@@ -108,7 +111,7 @@
                         <c:forEach items="${requestScope.random8}" var="m">
                             <div class="col-lg-3 col-sm-6 col-12 top_rate new_release">
                                 <div class="movie-img-wrapper">
-                                    <img src="${m.image}" alt="movie-img">
+                                    <img src="${m.image}" alt="movie-img" width="250px" height="380px">
                                     <div class="play-interact">
                                         <a href="movie_detail?id=${m.id}">
                                             <i class="fas fa-play-circle"></i>
@@ -117,7 +120,7 @@
                                 </div>
                                 <div class="movie-description">
                                     <h6><a href="movie_detail?id=${m.id}">${m.name}</a></h6>
-                                    <p>2018, USA, Action</p>
+                                    <p>${m.release},${m.cid.name}</p>
                                     <div class="description-star">
                                         <i class="fas fa-star voted"></i>
                                         <i class="fas fa-star voted"></i>
@@ -140,7 +143,7 @@
                                 </div>
                                 <div class="movie-description">
                                     <h6><a href="movie_detail?id=${coming.id}">${coming.name}</a></h6>
-                                    <p>2018, USA, Action</p>
+                                    <p>${coming.release},${coming.cid.name}</p>
                                     <div class="description-star">
                                         <i class="fas fa-star voted"></i>
                                         <i class="fas fa-star voted"></i>
@@ -176,13 +179,12 @@
                                         <a href="#">${soon.name}</a>
                                     </h3>
                                     <ul>
-                                        <li>1h 59min</li>
+                                        <li>${soon.view}</li>
                                         <li>
-                                            <a href="#">Action</a>,
-                                            <a href="#">Adventure</a>,
-                                            <a href="#">Comedy</a>
+                                            <a href="#">${soon.cid.name}</a>,
+
                                         </li>
-                                        <li> May 18, 2018 (USA)</li>
+                                        <li> ${soon.release}</li>
                                     </ul>
                                     <p>${soon.describe}</p>
                                     <p>Director:
@@ -198,7 +200,9 @@
                             </div>
                         </div>
                     </c:forEach>
-                    <button class="btn">ADD TO WATHCLIST</button>
+<!--                    <form action="movie_detail?id=${soon.id}" method="post">
+                        <button class="btn"onclick="this.form.submit()">ADD TO WATHCLIST</button>
+                    </form>  -->
                 </div>
             </div>
             <div class="box-office">
@@ -217,7 +221,7 @@
                                 </div>
                                 <div class="movie-description">
                                     <h6><a href="#">${soon.name}</a></h6>
-                                    <p>2018, USA, Action</p>
+                                    <p>${soon.cid.name}</p>
                                     <div class="description-star">
                                         <i class="fas fa-star voted"></i>
                                         <i class="fas fa-star voted"></i>
@@ -227,7 +231,7 @@
                                     </div>
                                     <div class="movie-price">
                                         <p>${soon.price}</p>
-                                        <a href="#">BUY MOVIE</a>
+                                        <!--                                        <a href="#">BUY MOVIE</a>-->
                                     </div>
                                 </div>
                             </div>
@@ -251,140 +255,140 @@
                     </div>
                 </div>
             </div>
-            <div class="recent-news">
-                <div class="container">
-                    <h1>recent news</h1>
-                    <hr>
-                    <div class="row justify-content-center">
-                        <div class="col-12 col-md-6 col-lg-4">
-                            <div class="RN-news-wrapper">
-                                <img src="./images/index-8.jpg" alt="new-img">
-                                <div class="new-description">
-                                    <h4>
-                                        <a href="#">"Better Call Saul" Writer Offers Advice</a>
-                                    </h4>
-                                    <p>December 26, 2018</p>
-                                    <p>“Better Call Saul” writer Gennifer Hutchison offered some advice to Jason Blum after
-                                        the Blumhouse Productions chief said in an interview that he’s “trying” to hire a
-                                        woman...</p>
-                                    <a href="#" class="new-cmt-icon">
-                                        <i class="fas fa-comment"></i>
-                                        <span>2</span>
-                                    </a>
+            <!--            <div class="recent-news">
+                            <div class="container">
+                                <h1>recent news</h1>
+                                <hr>
+                                <div class="row justify-content-center">
+                                    <div class="col-12 col-md-6 col-lg-4">
+                                        <div class="RN-news-wrapper">
+                                            <img src="./images/index-8.jpg" alt="new-img">
+                                            <div class="new-description">
+                                                <h4>
+                                                    <a href="#">"Better Call Saul" Writer Offers Advice</a>
+                                                </h4>
+                                                <p>December 26, 2018</p>
+                                                <p>“Better Call Saul” writer Gennifer Hutchison offered some advice to Jason Blum after
+                                                    the Blumhouse Productions chief said in an interview that he’s “trying” to hire a
+                                                    woman...</p>
+                                                <a href="#" class="new-cmt-icon">
+                                                    <i class="fas fa-comment"></i>
+                                                    <span>2</span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-6 col-lg-4">
+                                        <div class="RN-news-wrapper">
+                                            <img src="./images/index-8.jpg" alt="new-img">
+                                            <div class="new-description">
+                                                <h4>
+                                                    <a href="#">"Better Call Saul" Writer Offers Advice</a>
+                                                </h4>
+                                                <p>December 26, 2018</p>
+                                                <p>“Better Call Saul” writer Gennifer Hutchison offered some advice to Jason Blum after
+                                                    the Blumhouse Productions chief said in an interview that he’s “trying” to hire a
+                                                    woman...</p>
+                                                <a href="#" class="new-cmt-icon">
+                                                    <i class="fas fa-comment"></i>
+                                                    <span>2</span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-6 col-lg-4">
+                                        <div class="RN-news-wrapper">
+                                            <img src="./images/index-8.jpg" alt="new-img">
+                                            <div class="new-description">
+                                                <h4>
+                                                    <a href="#">"Better Call Saul" Writer Offers Advice</a>
+                                                </h4>
+                                                <p>December 26, 2018</p>
+                                                <p>“Better Call Saul” writer Gennifer Hutchison offered some advice to Jason Blum after
+                                                    the Blumhouse Productions chief said in an interview that he’s “trying” to hire a
+                                                    woman...</p>
+                                                <a href="#" class="new-cmt-icon">
+                                                    <i class="fas fa-comment"></i>
+                                                    <span>2</span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button class="btn">VIEW ALL BLOG POSTS</button>
+                            </div>
+                        </div>-->
+            <!--            <div class="our-partners">
+                            <div class="container">
+                                <h1>our partners</h1>
+                                <hr>
+                                <div class="row justify-content-center">
+                                    <div class="col-md-3 col-sm-6 col-6">
+                                        <img src="./images/partner-1.png" alt="img-partners">
+                                    </div>
+                                    <div class="col-md-3 col-sm-6 col-6">
+                                        <img src="./images/partner-1.png" alt="img-partners">
+                                    </div>
+                                    <div class="col-md-3 col-sm-6 col-6">
+                                        <img src="./images/partner-1.png" alt="img-partners">
+                                    </div>
+                                    <div class="col-md-3 col-sm-6 col-6">
+                                        <img src="./images/partner-1.png" alt="img-partners">
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-12 col-md-6 col-lg-4">
-                            <div class="RN-news-wrapper">
-                                <img src="./images/index-8.jpg" alt="new-img">
-                                <div class="new-description">
-                                    <h4>
-                                        <a href="#">"Better Call Saul" Writer Offers Advice</a>
-                                    </h4>
-                                    <p>December 26, 2018</p>
-                                    <p>“Better Call Saul” writer Gennifer Hutchison offered some advice to Jason Blum after
-                                        the Blumhouse Productions chief said in an interview that he’s “trying” to hire a
-                                        woman...</p>
-                                    <a href="#" class="new-cmt-icon">
-                                        <i class="fas fa-comment"></i>
-                                        <span>2</span>
-                                    </a>
+                        </div>-->
+            <!--            <div class="testimonials">
+                            <div class="container">
+                                <h1>testimonials</h1>
+                                <hr>
+                                <div class="T-review-show">
+                                    <div class="T-review-container d-flex">
+                                        <div class="T-reviewer">
+                                            <img src="./images/index-12.jpg" alt="review-img">
+                                            <p>Sharon Willis</p>
+                                            <p>"One of the best online movie streaming services that I’ve seen! Thank you for the
+                                                constant updates of your movies and TV shows catalog. I recommend MOOV to everyone!"</p>
+                                        </div>
+                                        <div class="T-reviewer">
+                                            <img src="./images/index-12.jpg" alt="review-img">
+                                            <p>Sharon Willis</p>
+                                            <p>"One of the best online movie streaming services that I’ve seen! Thank you for the
+                                                constant updates of your movies and TV shows catalog. I recommend MOOV to everyone!"</p>
+                                        </div>
+                                        <div class="T-reviewer">
+                                            <img src="./images/index-12.jpg" alt="review-img">
+                                            <p>Sharon Willis</p>
+                                            <p>"One of the best online movie streaming services that I’ve seen! Thank you for the
+                                                constant updates of your movies and TV shows catalog. I recommend MOOV to everyone!"</p>
+                                        </div>
+                                        <div class="T-reviewer">
+                                            <img src="./images/index-12.jpg" alt="review-img">
+                                            <p>Sharon Willis</p>
+                                            <p>"One of the best online movie streaming services that I’ve seen! Thank you for the
+                                                constant updates of your movies and TV shows catalog. I recommend MOOV to everyone!"</p>
+                                        </div>
+                                        <div class="T-reviewer">
+                                            <img src="./images/index-12.jpg" alt="review-img">
+                                            <p>Sharon Willis</p>
+                                            <p>"One of the best online movie streaming services that I’ve seen! Thank you for the
+                                                constant updates of your movies and TV shows catalog. I recommend MOOV to everyone!"</p>
+                                        </div>
+                                        <div class="T-reviewer">
+                                            <img src="./images/index-12.jpg" alt="review-img">
+                                            <p>Sharon Willis</p>
+                                            <p>"One of the best online movie streaming services that I’ve seen! Thank you for the
+                                                constant updates of your movies and TV shows catalog. I recommend MOOV to everyone!"</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="T-dot-items d-flex justify-content-center">
+                                    <span class="T-dot-item active" data-index="1"></span>
+                                    <span class="T-dot-item" data-index="2"></span>
+                                    <span class="T-dot-item" data-index="3"></span>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-12 col-md-6 col-lg-4">
-                            <div class="RN-news-wrapper">
-                                <img src="./images/index-8.jpg" alt="new-img">
-                                <div class="new-description">
-                                    <h4>
-                                        <a href="#">"Better Call Saul" Writer Offers Advice</a>
-                                    </h4>
-                                    <p>December 26, 2018</p>
-                                    <p>“Better Call Saul” writer Gennifer Hutchison offered some advice to Jason Blum after
-                                        the Blumhouse Productions chief said in an interview that he’s “trying” to hire a
-                                        woman...</p>
-                                    <a href="#" class="new-cmt-icon">
-                                        <i class="fas fa-comment"></i>
-                                        <span>2</span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <button class="btn">VIEW ALL BLOG POSTS</button>
-                </div>
-            </div>
-            <div class="our-partners">
-                <div class="container">
-                    <h1>our partners</h1>
-                    <hr>
-                    <div class="row justify-content-center">
-                        <div class="col-md-3 col-sm-6 col-6">
-                            <img src="./images/partner-1.png" alt="img-partners">
-                        </div>
-                        <div class="col-md-3 col-sm-6 col-6">
-                            <img src="./images/partner-1.png" alt="img-partners">
-                        </div>
-                        <div class="col-md-3 col-sm-6 col-6">
-                            <img src="./images/partner-1.png" alt="img-partners">
-                        </div>
-                        <div class="col-md-3 col-sm-6 col-6">
-                            <img src="./images/partner-1.png" alt="img-partners">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="testimonials">
-                <div class="container">
-                    <h1>testimonials</h1>
-                    <hr>
-                    <div class="T-review-show">
-                        <div class="T-review-container d-flex">
-                            <div class="T-reviewer">
-                                <img src="./images/index-12.jpg" alt="review-img">
-                                <p>Sharon Willis</p>
-                                <p>"One of the best online movie streaming services that I’ve seen! Thank you for the
-                                    constant updates of your movies and TV shows catalog. I recommend MOOV to everyone!"</p>
-                            </div>
-                            <div class="T-reviewer">
-                                <img src="./images/index-12.jpg" alt="review-img">
-                                <p>Sharon Willis</p>
-                                <p>"One of the best online movie streaming services that I’ve seen! Thank you for the
-                                    constant updates of your movies and TV shows catalog. I recommend MOOV to everyone!"</p>
-                            </div>
-                            <div class="T-reviewer">
-                                <img src="./images/index-12.jpg" alt="review-img">
-                                <p>Sharon Willis</p>
-                                <p>"One of the best online movie streaming services that I’ve seen! Thank you for the
-                                    constant updates of your movies and TV shows catalog. I recommend MOOV to everyone!"</p>
-                            </div>
-                            <div class="T-reviewer">
-                                <img src="./images/index-12.jpg" alt="review-img">
-                                <p>Sharon Willis</p>
-                                <p>"One of the best online movie streaming services that I’ve seen! Thank you for the
-                                    constant updates of your movies and TV shows catalog. I recommend MOOV to everyone!"</p>
-                            </div>
-                            <div class="T-reviewer">
-                                <img src="./images/index-12.jpg" alt="review-img">
-                                <p>Sharon Willis</p>
-                                <p>"One of the best online movie streaming services that I’ve seen! Thank you for the
-                                    constant updates of your movies and TV shows catalog. I recommend MOOV to everyone!"</p>
-                            </div>
-                            <div class="T-reviewer">
-                                <img src="./images/index-12.jpg" alt="review-img">
-                                <p>Sharon Willis</p>
-                                <p>"One of the best online movie streaming services that I’ve seen! Thank you for the
-                                    constant updates of your movies and TV shows catalog. I recommend MOOV to everyone!"</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="T-dot-items d-flex justify-content-center">
-                        <span class="T-dot-item active" data-index="1"></span>
-                        <span class="T-dot-item" data-index="2"></span>
-                        <span class="T-dot-item" data-index="3"></span>
-                    </div>
-                </div>
-            </div>
+                        </div>-->
         </div>
 
         <%@include file="footer.jsp" %>

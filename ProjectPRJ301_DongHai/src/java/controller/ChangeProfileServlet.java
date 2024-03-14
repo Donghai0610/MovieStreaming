@@ -8,19 +8,24 @@ import dal.userDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
-import java.io.InputStream;
-import java.util.Scanner;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.nio.file.Paths;
+import java.nio.file.Files;
+
 import model.User;
 
 /**
  *
  * @author nguye
  */
+@MultipartConfig
 public class ChangeProfileServlet extends HttpServlet {
 
     /**
@@ -80,14 +85,10 @@ public class ChangeProfileServlet extends HttpServlet {
         String fullname = request.getParameter("fullname");
         String email = request.getParameter("email");
         String phonenum = request.getParameter("phone");
-        Part filePart = request.getPart("avatar");
-        String avatar = "";
-        if (filePart != null) {
-            InputStream fileContent = filePart.getInputStream();
-            avatar = "images/" + new Scanner(fileContent, "UTF-8").useDelimiter("\\A").next() + ".png";
-
-            System.out.println(avatar);
-        }
+        Part a = request.getPart("avatar");
+        String realPath = request.getServletContext().getRealPath("/images");
+        String avatar = "images/" + Paths.get(a.getSubmittedFileName()).getFileName().toString();
+        System.out.println(avatar);
         userDAO dal = new userDAO();
         User u = dal.checkAccount(user, pass);
         User us = new User(user, fullname, email, phonenum, avatar, pass);
@@ -96,7 +97,7 @@ public class ChangeProfileServlet extends HttpServlet {
         request.setAttribute("ms2", ms2);
         HttpSession session = request.getSession();
         session.setAttribute("account", us);
-        response.sendRedirect("changeprofile");
+        request.getRequestDispatcher("my-info.jsp").forward(request, response);
 
     }
 

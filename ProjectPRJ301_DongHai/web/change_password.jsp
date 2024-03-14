@@ -45,7 +45,8 @@
                         </div>
                         <div class="PMI-wrapper">
                             <label for="oldPassword">Old Password</label>
-                            <input type="password" name="oldPassword" value="" id="oldPassword">
+                            <input  readonly type="password" name="oldPassword" value="" id="password-field">
+                            <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
                         </div>
                         <div class="PMI-wrapper">
                             <label for="newPassword">New Password</label>

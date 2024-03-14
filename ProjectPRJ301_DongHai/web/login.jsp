@@ -12,6 +12,7 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="google-signin-client_id" content="YOUR_CLIENT_ID.apps.googleusercontent.com">
         <title>Document</title>
         <link rel="stylesheet" href="./css/bootstrap.min.css">
         <link rel="stylesheet" href="./css/all.css">
@@ -20,7 +21,7 @@
     <body>
         <div id="form-content">
             <div class="form-background">
-                <img src="./images/login-img1.jpg" alt="bg">
+                <img src="./images/spider_man_login.jpg" alt="bg">
             </div>
             <div class="logo-wrapper">
                 <a href="home" class="fixed-logo">
@@ -40,6 +41,9 @@
 
                 <form action="login" method="post">
                     <h1>Login</h1>
+
+
+
                     <div class="form-group">
                         <div class="form-control-wrapper">
                             <input type="text" name="username" class="form-control" id="username" value="${cookie.username.value}">
@@ -60,13 +64,16 @@
                             <input type="checkbox" ${(cookie.remindeme.value eq 'ON')?"checked":""} name="remindeme" id="reminde-me" value="ON">
                             <span class="checkmark"></span>
                         </label>
-                        <a href="changepassword">Forgot Password?</a>
+                        <!--                        <a href="changepassword">Forgot Password?</a>-->
                     </div>
                     <button type="submit" class="form-submit">Login</button>
                 </form>
                 <div class="link-to-rest">
+                    <div id="my-signin2"><a href="https://accounts.google.com/o/oauth2/auth?scope=email&redirect_uri=http://localhost:9999/project/login&response_type=code
+                                            &client_id=411328130477-8vhoendbq81hldifvbcvbpjrlvm2ituj.apps.googleusercontent.com&approval_prompt=force">Login With Google</a>
+                    </div>
                     Don't have an account?
-                    <a href="./signup.jsp">Sign up</a>
+                    <a href="signup">Sign up</a>
                 </div>
                 <!-- them none de an hien the p thu 2 -->
                 <div class="captcha-wrapper none">
@@ -95,10 +102,30 @@
                 </div>
             </div>
         </div>
+        <script>
+            function onSuccess(googleUser) {
+                console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
+            }
+            function onFailure(error) {
+                console.log(error);
+            }
+            function renderButton() {
+                gapi.signin2.render('my-signin2', {
+                    'scope': 'profile email',
+                    'width': 240,
+                    'height': 50,
+                    'longtitle': true,
+                    'theme': 'dark',
+                    'onsuccess': onSuccess,
+                    'onfailure': onFailure
+                });
+            }
+        </script>
 
+        <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
         <script src="./js/script.js"></script>
         <script>
-//            handleLogin();
+            //            handleLogin();
         </script>
     </body>
 </html>

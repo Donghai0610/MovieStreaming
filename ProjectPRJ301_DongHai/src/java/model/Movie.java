@@ -23,6 +23,32 @@ public class Movie {
     public Movie() {
     }
 
+    public Movie(String name, double price, String image, String describe, String actor, String director, String linkmovie, Date release, Category cid) {
+        this.name = name;
+        this.price = price;
+        this.image = image;
+        this.describe = describe;
+        this.actor = actor;
+        this.director = director;
+        this.linkmovie = linkmovie;
+
+        this.release = release;
+        this.cid = cid;
+    }
+
+    public Movie(int id, String name, double price, String image, String describe, String actor, String director, String linkmovie, Date release, Category cid) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.image = image;
+        this.describe = describe;
+        this.actor = actor;
+        this.director = director;
+        this.linkmovie = linkmovie;
+        this.release = release;
+        this.cid = cid;
+    }
+
     public Movie(int id) {
         this.id = id;
     }

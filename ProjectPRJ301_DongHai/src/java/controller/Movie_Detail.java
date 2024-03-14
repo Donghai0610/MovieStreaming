@@ -6,6 +6,7 @@ package controller;
 
 import dal.InsertManyToMany;
 import dal.MovieDAO;
+import dal.WishListDAO;
 import dal.userDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -13,12 +14,10 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import java.sql.Date;
-import java.time.LocalDateTime;
 import java.util.List;
 import model.Comment;
 import model.Movie;
+import model.Order;
 import model.User;
 
 /**
@@ -66,10 +65,16 @@ public class Movie_Detail extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         MovieDAO dal = new MovieDAO();
+        WishListDAO order = new WishListDAO();
         InsertManyToMany ee = new InsertManyToMany();
         userDAO dao = new userDAO();
         String id_raw = request.getParameter("id");
         int id;
+        List<Movie> list_1 = dal.getRandomMovies(4);
+        request.setAttribute("random4", list_1);
+        int userID = ((User) request.getSession().getAttribute("account")).getId();
+        request.setAttribute("paied", order.Ordesr(userID, id_raw));
+
         try {
             id = Integer.parseInt(id_raw);
             Movie m = dal.getMoviebyId(id);
@@ -95,7 +100,30 @@ public class Movie_Detail extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        WishListDAO dal = new WishListDAO();
+        String id_raw = request.getParameter("id");
+        int id = Integer.parseInt(id_raw);
+        int user_id = ((User) request.getSession().getAttribute("account")).getId();
+        dal.insertWishList(user_id, id);
+        System.out.println(id_raw == null ? "null" : "");
+        System.out.println(user_id == 0 ? "null" : "");
+        //inser comment
+        try {
 
+            InsertManyToMany dao = new InsertManyToMany();
+            String comment = request.getParameter("ms_cmt");
+            if (comment != null) {
+                Comment c = new Comment();
+                c.setUserId(new User(user_id, null));
+                c.setVideoId(new Movie(id));
+                c.setComment(comment);
+
+                dao.insertComment(c);
+            }
+
+        } catch (Exception e) {
+        }
+        response.sendRedirect("movie_detail?id=" + id);
     }
 
     /**

@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,9 +21,37 @@
         <script src="./js/jquery-3.6.0.min.js"></script>
         <script src="./js/bootstrap.bundle.min.js"></script>
         <script src="./js/bootstrap.min.js"></script>
+        <script type="text/javascript">
+
+            function submitForm() {
+                // Get a reference to the form
+                var form = document.getElementById("myForm");
+                setTimeout(function () {
+                    alert("Form submitted successfully");
+                    form.reset();
+                }, 1000);
+                return false;
+            }
+
+// Replace this with your actual logic to check if the user has paid
+            const userHasPaid = true; // Change to true or false based on your check
+
+            const filmButton = document.getElementById("filmButton");
+
+            if (!userHasPaid) {
+                // If the user hasn't paid, disable the button and show the modal
+                filmButton.disabled = true;
+                $('#videoModal').modal('show');
+            }
+
+
+
+
+        </script>
     </head>
 
     <body>
+        <c:set var="aa" value="${sessionScope.account}"/>
         <%--<jsp:useBean id="d" class="dal.InsertManyToMany"/>--%>
         <%@include file="header.jsp" %>
         <div id="page-movie-detail-box">
@@ -34,18 +63,19 @@
                         <img src="${a.image}" alt="">
                         <i class="fas fa-play-circle"></i>
 
-                        <button type="button" class="" data-toggle="modal" data-target="#videoModal"><i
-                                class="fas fa-play-circle"></i></button>
-
-                        <div id="videoModal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog"
-                             aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-lg">
-                                <div class="modal-content">
-                                    <iframe width="560" height="315" src="${a.linkmovie}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                        <button type="button" class="" id="filmButton" data-toggle="modal" data-target="#videoModal">
+                            <i class="fas fa-play-circle"></i>
+                        </button>
+                        <c:if test="${not empty paied}">
+                            <div id="videoModal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog"
+                                 aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <iframe width="560" height="315" src="${a.linkmovie}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                                    </div>
                                 </div>
-                            </div>
-                        </div> 
-
+                            </div> 
+                        </c:if>    
                         <div class="modal fade" id="videoModal" tabindex="-1" role="dialog"
                              aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
@@ -123,26 +153,36 @@
 
                             </div>
                         </div>
-                        <button class="btn">
-                            <i class="fas fa-shopping-cart"></i>
-                            ADD TO CARD</button>
+                        <c:if test="${not empty paied}">
+                            <c:if test="${aa != null}">
+                                <form id="myForm" action="movie_detail?id=${a.id}" method="post">
+                                    <button class="btn" onchange="submitForm()" onclick="this.form.submit()">
+                                        <i class="fas fa-star"></i>
+                                        ADD TO WISH LIST</button>
+                                </form>    </c:if>
+                        </c:if>
+                        <span><button class="btn"><a href="payment?id=${a.id}"><i class="fas fa-shopping-cart"></i></a></button></span> 
                     </div>
 
                     <div class="MD__main-comment onclick">
                         <!-- onclick de hien cmt -->
-                        <h1>Comment (<span>50</span>)</h1>
+                        <h1>Comment (<span></span>)</h1>
 
                         <div class="MDM-comment-wrapper">
                             <!-- hien dong cmt cua minh dau tien neu da login/ neu chua thi hien thong bao -->
-                            <c:set var="a" value="${sessionScope.account}"/>
                             <div class="myselft_cmt show">
                                 <p class="ms_mustbelog">You must be <a href="login">Logged in</a> to post a review.</p>
-                                <c:if test="${a != null}">
+                                <c:if test="${aa != null}">
                                     <div class="comment-item">
-                                        <img src="${a.avatar}" alt="">
+                                        <img src="${aa.avatar}" alt="">
                                         <div class="comment-item-right">
-                                            <input type="text" name="ms_cmt" placeholder="How do you feel about film...">
-                                            <input type="submit" value="Submit">
+                                            <form action="movie_detail?id=${a.id}" method="post">
+                                                
+                                                <br>
+                                                <br><!-- <br> -->
+                                                <button type="submit" onclick="this.form.submit()">Submit</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                <button type="reset" >Cancel</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            </form>
                                             <!-- ranh lam them cai btn binh luan + btn huy -->
                                         </div>
                                     </c:if>
@@ -153,10 +193,10 @@
                             <div class="comment-list">
                                 <c:forEach items="${requestScope.comment}" var="c">
                                     <div class="comment-item">  
-                                        <img src="./images/batman_icon.png" alt="">
+                                        <img src="${c.userId.avatar}" alt="">
                                         <div class="comment-item-right">
                                             <p>
-                                                <strong></strong>
+                                                <strong>${c.userId.user}</strong>
                                                 <span></span>
                                             </p>
 
@@ -184,111 +224,43 @@
                     <h1>YOU MAY ALSO LIKE</h1>
                     <hr>
                     <div class="row">
-                        <div class="col-lg-3 col-sm-6 col-12">
-                            <div class="movie-img-wrapper">
-                                <a href="#">
-                                    <div>
-                                        <img src="./images/gallery-1.jpg" alt="movie-img">
+                        <c:forEach items="${requestScope.random4}" var="c">
+                            <div class="col-lg-3 col-sm-6 col-12">
+                                <div class="movie-img-wrapper">
+                                    <a href="movie_detail?id=${c.id}">
+                                        <div>
+                                            <img src="${c.image}" alt="movie-img" >
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="movie-description">
+                                    <h6><a href="#">${c.name}</a></h6>
+                                    <p>${c.cid.name}</p>
+                                    <div class="description-star">
+                                        <i class="fas fa-star voted"></i>
+                                        <i class="fas fa-star voted"></i>
+                                        <i class="fas fa-star voted"></i>
+                                        <i class="fas fa-star voted"></i>
+                                        <i class="fas fa-star"></i>
                                     </div>
-                                </a>
-                            </div>
-                            <div class="movie-description">
-                                <h6><a href="#">Ant-Man and the Wasp</a></h6>
-                                <p>2018, USA, Action</p>
-                                <div class="description-star">
-                                    <i class="fas fa-star voted"></i>
-                                    <i class="fas fa-star voted"></i>
-                                    <i class="fas fa-star voted"></i>
-                                    <i class="fas fa-star voted"></i>
-                                    <i class="fas fa-star"></i>
-                                </div>
-                                <div class="movie-price">
-                                    <p>$29.00</p>
-                                    <span>ADD TO CARD</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-sm-6 col-12">
-                            <div class="movie-img-wrapper">
-                                <a href="#">
-                                    <div>
-                                        <img src="./images/gallery-1.jpg" alt="movie-img">
+                                    <div class="movie-price">
+                                        <p>${c.price}</p>
                                     </div>
-                                </a>
-                            </div>
-                            <div class="movie-description">
-                                <h6><a href="#">Ant-Man and the Wasp</a></h6>
-                                <p>2018, USA, Action</p>
-                                <div class="description-star">
-                                    <i class="fas fa-star voted"></i>
-                                    <i class="fas fa-star voted"></i>
-                                    <i class="fas fa-star voted"></i>
-                                    <i class="fas fa-star voted"></i>
-                                    <i class="fas fa-star"></i>
-                                </div>
-                                <div class="movie-price">
-                                    <p>$29.00</p>
-                                    <span>ADD TO CARD</span>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-lg-3 col-sm-6 col-12">
-                            <div class="movie-img-wrapper">
-                                <a href="#">
-                                    <div>
-                                        <img src="./images/gallery-1.jpg" alt="movie-img">
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="movie-description">
-                                <h6><a href="#">Ant-Man and the Wasp</a></h6>
-                                <p>2018, USA, Action</p>
-                                <div class="description-star">
-                                    <i class="fas fa-star voted"></i>
-                                    <i class="fas fa-star voted"></i>
-                                    <i class="fas fa-star voted"></i>
-                                    <i class="fas fa-star voted"></i>
-                                    <i class="fas fa-star"></i>
-                                </div>
-                                <div class="movie-price">
-                                    <p>$29.00</p>
-                                    <span>ADD TO CARD</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-sm-6 col-12">
-                            <div class="movie-img-wrapper">
-                                <a href="#">
-                                    <div>
-                                        <img src="./images/gallery-1.jpg" alt="movie-img">
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="movie-description">
-                                <h6><a href="#">Ant-Man and the Wasp</a></h6>
-                                <p>2018, USA, Action</p>
-                                <div class="description-star">
-                                    <i class="fas fa-star voted"></i>
-                                    <i class="fas fa-star voted"></i>
-                                    <i class="fas fa-star voted"></i>
-                                    <i class="fas fa-star voted"></i>
-                                    <i class="fas fa-star"></i>
-                                </div>
-                                <div class="movie-price">
-                                    <p>$29.00</p>
-                                    <span>ADD TO CARD</span>
-                                </div>
-                            </div>
-                        </div>
+                        </c:forEach>
+
+
                     </div>
                 </div>
             </div>
         </div>
         <%@include file="footer.jsp" %>
         <script src="./js/script.js"></script>
+
         <script>
-            handleMovieDetail();
-            handleAll_Except_Login_SignOut();
+                                                    handleMovieDetail();
+                                                    handleAll_Except_Login_SignOut();
         </script>
     </body>
 </html>

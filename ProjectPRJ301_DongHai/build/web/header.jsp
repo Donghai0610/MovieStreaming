@@ -6,6 +6,8 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page import= "dal.WishListDAO,model.User,model.WishList,model.Movie,java.util.List,model.Order" %> 
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -14,6 +16,13 @@
         <link rel="stylesheet" href="./css/bootstrap.min.css">
         <link rel="stylesheet" href="./css/all.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+        <script type="text/javascript">
+            function doDeleteWishList(id) {
+                if (confirm("Are you surely to delete id =" + id)) {
+                    window.location.href = "deletewishlist?id=" + id;
+                }
+            }
+        </script>
     </head>
     <body>
         <div id="page-heading">
@@ -35,14 +44,17 @@
 
                                 <a class="nav-link" href="movie">Movies</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link " href="#">About us</a>
-                            </li>
+
+                            <!--                            <li class="nav-item">
+                            
+                                                            <a class="nav-link" href="movie">Movies</a>
+                                                        </li>-->
+
 
                             <c:set var="a" value="${sessionScope.account}" />
                             <c:if test="${a.role == 1}">
                                 <li class="nav-item ">
-                                    <a class="nav-link" href="admin.jsp">Admin Manager</a>
+                                    <a class="nav-link" href="admin-chart.jsp">Admin Manager</a>
                                 </li>
                             </c:if>
                             <c:if test="${a.role == 2}">
@@ -71,31 +83,75 @@
                             </div>
                         </c:if>
                         <c:if test="${a != null}">
+                            <%
+                                 WishListDAO dal = new WishListDAO();
+
+                                List<WishList> list = dal.getALL((User)session.getAttribute("account"));
+                                 int userID = ((User) request.getSession().getAttribute("account")).getId();
+                                 List<Order> list_1 = dal.getOrder(userID);
+
+                            %>
                             <div class="connected-to-web d-flex">
-                                <div class="shopping-card-wrapper">
+                                <div class="shopping-card-wrapper movie-paided">
                                     <!-- them class onclick de hien demo-card-film -->
-                                    <span class="shoping-card-title">Shopping Card</span>
+                                    <span class="shoping-card-title">MoviePaided</span>
+                                    <i class="fa fa-folder" aria-hidden="true"><span class="shoping-card-title"></span></i>
                                     <div class="demo-card-film ">
                                         <div class="MyCard-header d-flex">
-                                            <h6>Shopping Card</h6>
+                                            <h6>Movie Paided</h6>
                                             <a href="#">View all notification</a>
                                         </div>
                                         <div class="MyCard-content">
+                                            <%for(int i = 0 ; i < list_1.size(); i++){
+                                                Order c = list_1.get(i);
+                                            %>
                                             <div class="MyCard-content-item">
-                                                <a href="#">
-                                                    <img src="./images/gallery-1.jpg">
+                                                <a href="movie_detail?id=<%=c.getMovieID().getId()%>">
+                                                    <img src="<%= c.getMovieID().getImage()%>">
                                                 </a>
                                                 <div class="card-film-info">
-                                                    <h3><a href="#">Twenty Five Twenty One Twenty Five Twenty One</a></h3>
-                                                    <p class="card-last-access">Last access was 13 day ago</p>
+                                                    <h3><a href="#"><%= c.getMovieID().getName()%></a></h3>
+                                                    <!--                                                   
+                                                    <!-- mac dinh la chua tra, them paid de hien tra roi -->
+
+                                                </div>
+                                            </div>
+                                            <%}%>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="shopping-card-wrapper wishlist">
+                                    <!-- them class onclick de hien demo-card-film -->
+                                    <span class="shoping-card-title wishlist ">WishList</span>
+                                    <i class="fas fa-shopping-cart"><span class="shoping-card-title"></span></i>
+                                    <div class="demo-card-film onclick ">
+                                        <div class="MyCard-header d-flex">
+                                            <h6>WishList</h6>
+                                            <a href="#">View all notification</a>
+                                        </div>
+                                        <div class="MyCard-content">
+                                            <%for(int i = 0 ; i < list.size(); i++){
+                                                WishList c = list.get(i);
+                                            %>
+                                            <div class="MyCard-content-item">
+                                                <a href="movie_detail?id=<%=c.getMovie().getId()%>">
+                                                    <img src="<%= c.getMovie().getImage()%>">
+                                                </a>
+                                                <div class="card-film-info">
+                                                    <h3><a href="#"><%= c.getMovie().getName()%></a></h3>
+                                                    <p class="card-last-access">Last acces <%=c.getWishlistDate()%></p>
                                                     <!-- mac dinh la chua tra, them paid de hien tra roi -->
                                                     <div class="card-checkpay paid">
-                                                        <span>Paid</span>
+                                                        <span onclick="doDeleteWishList('<%=c.getId()%>')">Delete</span></
                                                         <!-- dung after de hien tich -->
-                                                        <a href="#">Pay Now$$</a>
+                                                        <!--<a href="de">Pay Now$$</a>-->
                                                     </div>
                                                 </div>
                                             </div>
+                                            <%}%>
+
                                         </div>
                                     </div>
                                 </div>

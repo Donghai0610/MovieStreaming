@@ -13,13 +13,18 @@ function handleAll_Except_Login_SignOut() {
 
     //btn shoping card + btn avatar
     let shopingCardBtn = $('#page-heading .shoping-card-title');
-    let avatarBtn = $('#page-heading .avatar-wrapper img')
+    let avatarBtn = $('#page-heading .avatar-wrapper img');
+    let wishList = $('#page-heading .shoping-card-title.wishlist');
+
     shopingCardBtn.onclick = function () {
         this.parentElement.classList.toggle('onclick');
-    }
+    };
     avatarBtn.onclick = function () {
         this.parentElement.classList.toggle('onclick');
-    }
+    };
+    wishList.onclick = function () {
+        this.parentElement.classList.toggle('onclick');
+    };
 
     document.onclick = (e) => {
         if (!e.target.closest('.shopping-card-wrapper')) {
@@ -27,12 +32,17 @@ function handleAll_Except_Login_SignOut() {
                 shopingCardBtn.parentElement.classList.remove('onclick');
             }
         }
+        if (!e.target.closest('.shopping-card-wrapper')) {
+            if (wishList.parentElement.classList.contains('onclick')) {
+                wishList.parentElement.classList.remove('onclick');
+            }
+        }
         if (!e.target.closest('.avatar-wrapper')) {
             if (avatarBtn.parentElement.classList.contains('onclick')) {
                 avatarBtn.parentElement.classList.remove('onclick');
             }
         }
-    }
+    };
 }
 
 // index.html 

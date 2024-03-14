@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -26,167 +27,19 @@
                 integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
         <link rel="stylesheet" href="./css/all.css">
+        <script type="text/javascript">
+            function deleted(user) {
+                if (confirm("Are you surely to delete user = " + user)) {
+                    window.location = "deleteaccount?user=" + user;
+                }
+            }
+        </script>
     </head>
 
     <body>
-        <div id="page-heading">
-            <!-- them onactive + bo container de thay doi size cua header -->
-            <nav class="navbar navbar-expand-sm navbar-dark onactive">
-                <a class="navbar-brand" href="#">
-                    <img src="./images/logo-default.png" alt="Logo" style="width:164px; height: 47px;">
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="collapsibleNavbar">
-                    <!-- them d-flex justify-content-between nav-width de tao khoang cach khi login-->
-                    <ul class="navbar-nav ml-auto d-flex justify-content-between nav-width" id="collapsibleNavbar">
-                        <div class="const-component-wrapper d-flex">
-                            <li class="nav-item active">
-                                <a class="nav-link" href="./home.jsp">Home</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link active" href="./movie.jsp">Movies</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">About us</a>
-                            </li>
-                            <!-- them not-admin de an link nay -->
-                            <li class="nav-item not-admin">
-                                <a class="nav-link" href="#">Admin Manager</a>
-                            </li>
-                            <!-- <li class="nav-item">
-                                <a class="nav-link" href="#">
-                                    <i class="fas fa-shopping-bag"></i>
-                                    <span>2</span>
-                                </a>
-                            </li> -->
-                        </div>
-                        <!-- them d-flex de hien -->
-                        <div class="connecting-to-web">
-                            <li class="nav-item">
-                                <a class="nav-link" href="./login.jsp">Login</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="./signup.jsp">Sign up</a>
-                            </li>
-                        </div>
-                        <div class="connected-to-web d-flex">
-                            <div class="shopping-card-wrapper">
-                                <!-- them class onclick de hien demo-card-film -->
-                                <span class="shoping-card-title">Shopping Card</span>
-                                <div class="demo-card-film">
-                                    <div class="MyCard-header d-flex">
-                                        <h6>Shopping Card</h6>
-                                        <a href="#">View all notification</a>
-                                    </div>
-                                    <div class="MyCard-content">
-                                        <div class="MyCard-content-item">
-                                            <a href="#">
-                                                <img src="./images/gallery-1.jpg">
-                                            </a>
-                                            <div class="card-film-info">
-                                                <h3><a href="#">Twenty Five Twenty One Twenty Five Twenty One</a></h3>
-                                                <p class="card-last-access">Last access was 13 day ago</p>
-                                                <!-- mac dinh la chua tra, them paid de hien tra roi -->
-                                                <div class="card-checkpay paid">
-                                                    <span>Paid</span>
-                                                    <!-- dung after de hien tich -->
-                                                    <a href="#">Pay Now$$</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- <div class="notification-wrapper">
-                                <span><i class="fas fa-bell"></i></span>
-                                <div class="notification-list"></div>
-                            </div> -->
-                            <!-- add class onclick to appear avatar-down-->
-                            <div class="avatar-wrapper">
-                                <img src="./images/avatar.jpg" alt="avatar">
-                                <div class="avatar-down">
-                                    <div class="avatar__down-header">
-                                        <img src="./images/avatar.jpg" alt="avatar">
-                                        <p>Le Minh Quan</p>
-                                    </div>
-                                    <hr>
-                                    <div class="avatar__down-info">
-                                        <a href="#">Your Info</a>
-                                    </div>
-                                    <hr>
-                                    <div class="avatar__down-singout">
-                                        <a href="#">Sign out</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </ul>
-                </div>
-            </nav>
-        </div>
+        <%@include file="header.jsp" %>
         <div id="admin-wrapper">
-            <div class="admin-sidebar">
-                <ul>
-                    <li class="main-side">
-                        <h3>Main</h3>
-                        <a href="#">
-                            <i class="fas fa-home"></i>
-                            <span>Dashboard</span>
-                        </a>
-                    </li>
-                    <li class="movie-side">
-                        <h3>Movie</h3>
-                        <button>
-                            <i class="fas fa-video"></i>
-                            <span>Movie Manager</span>
-                            <div class="direction-wrapper">
-                                <i class="fas fa-angle-right"></i>
-                                <i class="fas fa-angle-down"></i>
-                            </div>
-                        </button>
-                        <ul class="dropdown-manager">
-                            <li><a href="admin.jsp">
-                                    <i class="fas fa-caret-right"></i>
-                                    <span>Add movie</span>
-                                </a></li>
-                            <li><a href="movie.jsp">
-                                    <i class="fas fa-caret-right"></i>
-                                    <span>List movie</span>
-                                </a></li>
-                        </ul>
-                    </li>
-                    <li class="account-side">
-                        <h3>Account</h3>
-                        <button>
-                            <i class="fas fa-user"></i>
-                            <span>Account Manager</span>
-                            <div class="direction-wrapper">
-                                <i class="fas fa-angle-right"></i>
-                                <i class="fas fa-angle-down"></i>
-                            </div>
-                        </button>
-                        <ul class="dropdown-manager">
-                            <li><a href="admin-handleAcc.jsp">
-                                    <i class="fas fa-caret-right"></i>
-                                    <span>Block account</span>
-                                </a></li>
-                            <li><a href="admin-handleAcc.jsp">
-                                    <i class="fas fa-caret-right"></i>
-                                    <span>UnBlock account</span>
-                                </a></li>
-                        </ul>
-                    </li>
-                    <li class="other-side">
-                        <h3>Other</h3>
-                        <a href="#">
-                            <i class="fab fa-facebook-messenger"></i>
-                            <span>Message</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
+            <%@include file="admin_sidebar.jsp" %>
             <div class="admin-main">
                 <div class="main-cotainer">
                     <div class="main-header">
@@ -211,136 +64,33 @@
                                 <thead class="">
                                     <tr>
                                         <th scope="col">#</th>
-                                        <th scope="col">FullName</th>
+                                        <th scope="col">Username</th>
+                                        <th scope="col">Password</th>
                                         <th scope="col">Email</th>
-                                        <th scope="col">Phone</th>
-                                        <th scope="col">Gender</th>
-                                        <th scope="col">Birth</th>
-                                        <th scope="col">Acc Money</th>
+                                        <th scope="col">Phonenum</th>
+                                        <th scope="col">FullName</th>
                                         <th scope="col">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody class="customm-tableBody">
-                                    <tr onclick="">
-                                        <th scope="row">1</th>
-                                        <td>Mark</td>
-                                        <td>Otto</td>
-                                        <td>@mdo</td>
-                                        <td>Otto</td>
-                                        <td>@mdo</td>
-                                        <td>Otto</td>
-                                        <td>
-                                            <i class="fas fa-lock-open"></i>
-                                            <i class="fas fa-lock"></i>
-                                        </td>
-                                    </tr>
-                                    <tr onclick="">
-                                        <th scope="row">2</th>
-                                        <td>Jacob</td>
-                                        <td>Thornton</td>
-                                        <td>@fat</td>
-                                        <td>Thornton</td>
-                                        <td>@fat</td>
-                                        <td>Thornton</td>
-                                        <td>
-                                            <i class="fas fa-lock-open"></i>
-                                            <i class="fas fa-lock"></i>
-                                        </td>
-                                    </tr>
-                                    <tr onclick="">
-                                        <th scope="row">3</th>
-                                        <td>Larry</td>
-                                        <td>the Bird</td>
-                                        <td>@twitter</td>
-                                        <td>the Bird</td>
-                                        <td>@twitter</td>
-                                        <td>the Bird</td>
-                                        <td>
-                                            <i class="fas fa-lock-open"></i>
-                                            <i class="fas fa-lock"></i>
-                                        </td>
-                                    </tr>
-                                    <tr onclick="">
-                                        <th scope="row">1</th>
-                                        <td>Mark</td>
-                                        <td>Otto</td>
-                                        <td>@mdo</td>
-                                        <td>Otto</td>
-                                        <td>@mdo</td>
-                                        <td>Otto</td>
-                                        <td>
-                                            <i class="fas fa-lock-open"></i>
-                                            <i class="fas fa-lock"></i>
-                                        </td>
-                                    </tr>
-                                    <tr onclick="">
-                                        <th scope="row">2</th>
-                                        <td>Jacob</td>
-                                        <td>Thornton</td>
-                                        <td>@fat</td>
-                                        <td>Thornton</td>
-                                        <td>@fat</td>
-                                        <td>Thornton</td>
-                                        <td>
-                                            <i class="fas fa-lock-open"></i>
-                                            <i class="fas fa-lock"></i>
-                                        </td>
-                                    </tr>
-                                    <tr onclick="">
-                                        <th scope="row">3</th>
-                                        <td>Larry</td>
-                                        <td>the Bird</td>
-                                        <td>@twitter</td>
-                                        <td>the Bird</td>
-                                        <td>@twitter</td>
-                                        <td>the Bird</td>
-                                        <td>
-                                            <i class="fas fa-lock-open"></i>
-                                            <i class="fas fa-lock"></i>
-                                        </td>
-                                    </tr>
-                                    <tr onclick="">
-                                        <th scope="row">1</th>
-                                        <td>Mark</td>
-                                        <td>Otto</td>
-                                        <td>@mdo</td>
-                                        <td>Otto</td>
-                                        <td>@mdo</td>
-                                        <td>Otto</td>
-                                        <td>
-                                            <i class="fas fa-lock-open"></i>
-                                            <i class="fas fa-lock"></i>
-                                        </td>
-                                    </tr>
-                                    <tr onclick="">
-                                        <th scope="row">2</th>
-                                        <td>Jacob</td>
-                                        <td>Thornton</td>
-                                        <td>@fat</td>
-                                        <td>Thornton</td>
-                                        <td>@fat</td>
-                                        <td>Thornton</td>
-                                        <td>
-                                            <i class="fas fa-lock-open"></i>
-                                            <i class="fas fa-lock"></i>
-                                        </td>
-                                    </tr>
-                                    <tr onclick="">
-                                        <th scope="row">3</th>
-                                        <td>Larry</td>
-                                        <td>the Bird</td>
-                                        <td>@twitter</td>
-                                        <td>the Bird</td>
-                                        <td>@twitter</td>
-                                        <td>the Bird</td>
-                                        <td>
-                                            <i class="fas fa-lock-open"></i>
-                                            <i class="fas fa-lock"></i>
-                                        </td>
-                                    </tr>
+                                    <c:forEach items="${requestScope.userList}" var="u">
+                                        <tr onclick="">
+                                            <th scope="row">${u.id}</th>
+                                            <td>${u.user}</td>
+                                            <td>${u.password}</td>
+                                            <td>${u.email}</td>
+                                            <td>${u.phonenum}</td>
+                                            <td>${u.fullname}</td>
+                                            <td>${u.role eq 1 ? 'Admin' : 'User'}</td>
+                                            <td>
+                                                <span> &nbsp;&nbsp;<a href="updateaccount?name=${u.user}"><i class="fas fa-edit"></i></a>&nbsp;&nbsp;</span>
+                                                <span>&nbsp;&nbsp; <a href="#" onclick="deleted('${u.user}')"><i class="fas fa-trash-alt"></i></a>&nbsp;&nbsp;</span>
+                                            </td>
+                                        </tr>
+                                    </c:forEach>
                                 </tbody>
                             </table>
-
+                            <c:set var="page" value="${requestScope.page}"/>
                             <nav aria-label="Page navigation">
                                 <ul class="pagination custom-nav">
                                     <li class="page-item disabled">
@@ -349,9 +99,9 @@
                                             <span class="sr-only">Previous</span>
                                         </a>
                                     </li>
-                                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                    <c:forEach begin="${1}" end="${requestScope.num}" var="n">
+                                        <li><a  class="${n==page?"active":""}"href="admin_account?page=${n}">${n}</a></li>
+                                        </c:forEach>
                                     <li class="page-item">
                                         <a class="page-link" href="#" aria-label="Next">
                                             <span aria-hidden="true">&raquo;</span>
@@ -365,28 +115,11 @@
                 </div>
             </div>
         </div>
-        <div id="page-footer">
-            <div class="container">
-                <div class="footer-content">
-                    <img src="./images/logo-default.png" alt="logo-img">
-                    <div class="icon-wrapper">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-pinterest-p"></i></a>
-                        <a href="#"><i class="fab fa-vimeo-v"></i></a>
-                        <a href="#"><i class="fab fa-google"></i></a>
-                        <a href="#"><i class="fas fa-rss"></i></a>
-                    </div>
-                </div>
-                <div class="footer-copyright">
-                    <p>© 2022 All Rights Reserved. Terms of Use.</p>
-                </div>
-            </div>
-        </div>
+        <%@include file="footer.jsp" %>
         <script src="./js/script.js"></script>
         <script>
-            handleAll_Except_Login_SignOut();
-            handleAdmin();
+                                                    handleAll_Except_Login_SignOut();
+                                                    handleAdmin();
         </script>
     </body>
 
